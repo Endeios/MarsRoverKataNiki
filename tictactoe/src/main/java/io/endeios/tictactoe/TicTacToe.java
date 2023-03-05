@@ -15,4 +15,12 @@ public class TicTacToe {
     public Player currentPlayer() {
         return Player.X;
     }
+
+    public void play(int column, int row) {
+
+    }
+
+    public Player getStatusForPosition(int i, int i1) {
+        return Player.X;
+    }
 }
