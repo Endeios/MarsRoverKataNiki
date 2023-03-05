@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static io.endeios.tictactoe.GameStatus.PLAYER_X_WINS;
+import static io.endeios.tictactoe.GameStatus.PLAYING;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
@@ -47,7 +49,7 @@ class TicTacToeTest {
     }
 
     @Test
-    void nullGameOne() {
+    void fullGameOne() {
         ticTacToe.play(0, 0);
         ticTacToe.play(1, 0);
         ticTacToe.play(2, 0);
@@ -58,6 +60,13 @@ class TicTacToeTest {
         ticTacToe.play(1, 2);
         ticTacToe.play(2, 2);
         logger.info("{}", ticTacToe);
-        assertSame(ticTacToe.getStatus(), GameStatus.PLAYER_X_WINS);
+        assertSame(PLAYER_X_WINS, ticTacToe.getStatus());
+    }
+
+    @Test
+    void gameStartsInPlayMode() {
+
+        assertSame(PLAYING, ticTacToe.getStatus());
+
     }
 }
