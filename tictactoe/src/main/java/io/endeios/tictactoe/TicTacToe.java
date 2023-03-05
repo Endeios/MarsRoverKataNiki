@@ -1,4 +1,4 @@
-package io.endeios;
+package io.endeios.tictactoe;
 
 
 import org.slf4j.Logger;
@@ -10,5 +10,9 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         logger.info("Welcome to Tick tack toe");
+    }
+
+    public Player currentPlayer() {
+        return Player.X;
     }
 }
