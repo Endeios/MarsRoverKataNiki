@@ -1,5 +1,17 @@
 package io.endeios.tictactoe;
 
 public enum Player {
-    X, O
+    X(Position.X), O(Position.O);
+
+
+    final Position symbol;
+
+    Player(Position position) {
+        symbol = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Player " + name();
+    }
 }

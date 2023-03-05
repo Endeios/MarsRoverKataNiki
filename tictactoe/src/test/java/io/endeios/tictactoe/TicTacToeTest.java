@@ -35,4 +35,10 @@ class TicTacToeTest {
         ticTacToe.play(0, 0);
         assertSame(Player.O, ticTacToe.currentPlayer());
     }
+
+    @Test
+    void playersCantCPlayTwiceSamePosition() {
+        ticTacToe.play(0, 0);
+        assertThrows(IllegalMoveException.class, () -> ticTacToe.play(0, 0));
+    }
 }
