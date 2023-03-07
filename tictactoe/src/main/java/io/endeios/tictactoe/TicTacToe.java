@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 
 import static io.endeios.tictactoe.Position.EMPTY;
 
+/**
+ * Represents a single game
+ */
 public class TicTacToe {
 
     private final Position[][] gameBoard = new Position[3][3];
