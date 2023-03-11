@@ -1,8 +1,9 @@
 package io.endeios.tictactoe;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.BiPredicate;
 
 import static io.endeios.tictactoe.Position.EMPTY;
 
@@ -69,9 +70,14 @@ public class TicTacToe {
     }
 
     private boolean columnsAre(Position symbol) {
+        return aligned(symbol, this::columnIs);
+    }
+
+    private boolean aligned(Position symbol, BiPredicate<Integer, Position> predicate) {
         for (int i = 0; i < 3; i++) {
-            if (columnIs(i, symbol))
+            if (Boolean.TRUE.equals(predicate.test(i, symbol))) {
                 return true;
+            }
         }
         return false;
     }
@@ -81,11 +87,7 @@ public class TicTacToe {
     }
 
     private boolean rowsAre(Position symbol) {
-        for (int i = 0; i < 3; i++) {
-            if (rowIs(i, symbol))
-                return true;
-        }
-        return false;
+        return aligned(symbol, this::rowIs);
     }
 
     private boolean rowIs(int rowNum, Position symbol) {
