@@ -93,11 +93,10 @@ public class TicTacToe {
     }
 
     private void switchPlayer() {
-        if (currentPlayer == Player.X) {
-            currentPlayer = Player.O;
-        } else {
-            currentPlayer = Player.X;
-        }
+        currentPlayer = switch (currentPlayer) {
+            case O -> Player.X;
+            case X -> Player.O;
+        };
     }
 
     public Player getStatusForPosition(int column, int row) {
