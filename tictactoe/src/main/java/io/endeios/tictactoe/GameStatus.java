@@ -5,5 +5,5 @@ package io.endeios.tictactoe;
  * PLAYING is for the normal play state of the game
  */
 public enum GameStatus {
-    PLAYER_X_WINS, PLAYING
+    PLAYER_X_WINS, PLAYER_O_WINS, PLAYING
 }

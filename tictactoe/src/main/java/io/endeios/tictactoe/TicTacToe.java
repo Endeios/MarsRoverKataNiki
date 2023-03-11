@@ -15,6 +15,7 @@ public class TicTacToe {
     private Player currentPlayer;
 
     private static final Logger logger = LoggerFactory.getLogger(TicTacToe.class);
+    private GameStatus gameStatus;
 
     public TicTacToe() {
         this.currentPlayer = Player.X;
@@ -23,6 +24,7 @@ public class TicTacToe {
                 gameBoard[i][j] = EMPTY;
             }
         }
+        gameStatus = GameStatus.PLAYING;
     }
 
     public Player currentPlayer() {
@@ -39,7 +41,55 @@ public class TicTacToe {
             logger.error("Cannot set {} in {},{}: the position is occupied", currentPlayer, column, row);
             throw new IllegalMoveException("Player " + currentPlayer + " cannot occupy position " + row + "," + column);
         }
-        switchPlayer();
+        checkWinner();
+        if (getStatus() == GameStatus.PLAYING)
+            switchPlayer();
+    }
+
+    private void checkWinner() {
+        if (hasConsecutiveThreeSymbols(currentPlayer))
+            wins(currentPlayer);
+    }
+
+    private void wins(Player currentPlayer) {
+        gameStatus = switch (currentPlayer) {
+            case X -> GameStatus.PLAYER_X_WINS;
+            case O -> GameStatus.PLAYER_O_WINS;
+        };
+    }
+
+    private boolean hasConsecutiveThreeSymbols(Player currentPlayer) {
+        return rowsAre(currentPlayer.symbol) || columnsAre(currentPlayer.symbol) || diagonalsAre(currentPlayer.symbol);
+    }
+
+    private boolean diagonalsAre(Position symbol) {
+        return
+                gameBoard[0][0] == symbol && gameBoard[1][1] == symbol && gameBoard[2][2] == symbol ||
+                        gameBoard[2][0] == symbol && gameBoard[1][1] == symbol && gameBoard[0][2] == symbol;
+    }
+
+    private boolean columnsAre(Position symbol) {
+        for (int i = 0; i < 3; i++) {
+            if (columnIs(i, symbol))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean columnIs(int colNum, Position symbol) {
+        return gameBoard[0][colNum] == symbol && gameBoard[1][colNum] == symbol && gameBoard[2][colNum] == symbol;
+    }
+
+    private boolean rowsAre(Position symbol) {
+        for (int i = 0; i < 3; i++) {
+            if (rowIs(i, symbol))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean rowIs(int rowNum, Position symbol) {
+        return gameBoard[rowNum][0] == symbol && gameBoard[rowNum][1] == symbol && gameBoard[rowNum][2] == symbol;
     }
 
     private void switchPlayer() {
@@ -79,6 +129,6 @@ public class TicTacToe {
     }
 
     public GameStatus getStatus() {
-        return GameStatus.PLAYER_X_WINS;
+        return gameStatus;
     }
 }

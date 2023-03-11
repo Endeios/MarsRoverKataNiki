@@ -66,7 +66,7 @@ class TicTacToeTest {
     @Test
     void gameStartsInPlayMode() {
 
-        assertSame(PLAYING, ticTacToe.getStatus());
+        assertSame(PLAYING, ticTacToe.getStatus(), "The initial state should be " + PLAYING);
 
     }
 }
